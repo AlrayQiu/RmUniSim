@@ -1,0 +1,21 @@
+{
+  "name": "com.alray.rmunisim",
+  "version": "0.1.0",
+  "displayName": "RMUniSim",
+    "description": "This is an simulation package for RoboMaster in Unity.",
+  "unity": "2019.1",
+  "unityRelease": "0b5",
+  "dependencies": {},
+  "keywords": [
+    "robotics",
+    "simulation",
+    "autonomous",
+    "robomaster"
+  ],
+  "author": {
+    "name": "alray",
+    "email": "1780284652@qq.com",
+    "url": "https://alrayqiu.github.io"
+  },
+  "license": "GPL-3.0"
+}
