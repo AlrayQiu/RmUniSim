@@ -1,0 +1,7 @@
+{
+  "name": "MyFeature.Runtime",
+  "references": [],
+  "includePlatforms": ["Editor", "Android", "iOS"],
+  "allowUnsafeCode": true,
+  "overrideReferences": false
+}

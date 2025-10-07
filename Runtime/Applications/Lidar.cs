@@ -17,7 +17,7 @@ namespace com.alray.rmunisim.Applications
         /// <summary>
         /// 只是保存下引用，免得被GC回收了
         /// </summary>
-        private object lidarObj;
+        private ILidar lidarObj;
 
         void Start()
         {

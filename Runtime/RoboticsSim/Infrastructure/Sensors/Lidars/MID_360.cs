@@ -12,7 +12,7 @@ using UnityEngine;
 namespace com.alray.rmunisim.RoboticsSim.Infrastructure.Sensors.Lidars
 {
 
-    public class Mid360 : IPushSensor<LidarData>, IEventUpdateBinder<Transform>
+    public class Mid360 : ILidar
     {
         public IEventUpdateBinder<Transform>.BinderContext? Context { get; set; }
 
