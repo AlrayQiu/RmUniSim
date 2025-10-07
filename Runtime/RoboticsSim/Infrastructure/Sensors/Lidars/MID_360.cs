@@ -16,8 +16,8 @@ namespace com.alray.rmunisim.RoboticsSim.Infrastructure.Sensors.Lidars
     {
         public IEventUpdateBinder<Transform>.BinderContext? Context { get; set; }
 
-        event Action<LidarData> Processors;
-        public void AddDataProcessor(Action<LidarData> processor) => Processors += processor;
+        event Action<PointCloudData> Processors;
+        public void AddDataProcessor(Action<PointCloudData> processor) => Processors += processor;
 
         int count = 0;
 
@@ -87,7 +87,8 @@ namespace com.alray.rmunisim.RoboticsSim.Infrastructure.Sensors.Lidars
                 {
                     rayCount = 20000 - count;
                     RayCast(rayCount);
-                    Processors(new LidarData(pointsFrame.ToArray()));
+                    if (Processors is not null)
+                        Processors(new PointCloudData(pointsFrame.ToArray()));
                     pointsFrame.Clear();
                     count = rayCountTemp - rayCount;
                     RayCast(count);

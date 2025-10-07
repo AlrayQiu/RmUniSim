@@ -3,9 +3,9 @@ using System.Numerics;
 namespace com.alray.rmunisim.Contracts.DTOs
 {
     [Serializable]
-    public class LidarData
+    public class PointCloudData
     {
-        public LidarData(Vector3[] data)
+        public PointCloudData(Vector3[] data)
         {
             this.data = data;
         }
