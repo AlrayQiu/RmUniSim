@@ -1,39 +1,61 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
 using com.alray.rmunisim.Contracts.DTOs;
-using com.alray.rmunisim.Contracts.Helper;
 using com.alray.rmunisim.Contracts.Interfaces;
 using com.alray.rmunisim.RoboticsSim.Domain;
 using com.alray.rmunisim.RoboticsSim.Infrastructure.Sensors.Lidars;
+using com.alray.rmunisim.Visualization.Infrastructure;
 using UnityEngine;
 
 namespace com.alray.rmunisim.Applications
 {
+    [DisallowMultipleComponent]
     public class Lidar : MonoBehaviour
     {
-        public LidarTypes LidarType;
+        /// <summary>
+        /// 由 Inspector 获取
+        /// </summary>
+        public string LidarType;
+        public bool EnableRender = false;
+        public Material Material;
 
         /// <summary>
-        /// 只是保存下引用，免得被GC回收了
+        /// 雷达本身
         /// </summary>
         private ILidar lidarObj;
+        private PointCloudDrawer pcdDrawer;
+
+
 
         void Start()
         {
-            lidarObj = LidarType switch
+            lidarObj = LidarFactory.lidarBuilders[LidarType](
+                this,
+                transform
+                );
+
+            if (EnableRender)
             {
-                LidarTypes.Mid360 => LidarFactory<Mid360>.Build(this, transform, msg =>
-                {
-                    foreach (var p in msg.data) Debug.DrawLine(transform.position, new(p.X, p.Y, p.Z));
-                }),
-                _ => throw new NotImplementedException($"{LidarType.GetType().Name} error with value:${LidarType}")
-            };
+                pcdDrawer = DrawerManagerSingleton.Instance
+                     .RegistryDrawer<PointCloudDrawer, IPushSensor<PointCloudData>>(
+                         $"{this.name}_{this.LidarType}_pointCloud",
+                         Material,
+                         lidarObj
+                     );
+            }
         }
 
-        void Update()
+        void OnRenderObject()
         {
-
+            pcdDrawer?.Draw();
         }
+
+
+
     }
 }
