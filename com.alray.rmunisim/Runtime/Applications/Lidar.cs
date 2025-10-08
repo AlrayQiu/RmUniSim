@@ -31,7 +31,6 @@ namespace com.alray.rmunisim.Applications
         private PointCloudDrawer pcdDrawer;
 
 
-
         void Start()
         {
             lidarObj = LidarFactory.lidarBuilders[LidarType](

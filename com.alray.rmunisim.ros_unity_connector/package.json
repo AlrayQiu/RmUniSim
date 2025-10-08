@@ -1,0 +1,23 @@
+{
+  "name": "com.alray.rmunisim.ros_unity_connector",
+  "version": "0.1.0",
+  "displayName": "RMUniSim.Middleware.RosUnityConnector",
+    "description": "This is an simulation package for RoboMaster in Unity.",
+  "unity": "2019.1",
+  "unityRelease": "0b5",
+  "dependencies": {
+    "com.unity.robotics.ros-tcp-connector": "0.7.0"
+    },
+  "keywords": [
+    "robotics",
+    "comm layer",
+    "autonomous",
+    "robomaster"
+  ],
+  "author": {
+    "name": "alray",
+    "email": "1780284652@qq.com",
+    "url": "https://alrayqiu.github.io"
+  },
+  "license": "GPL-3.0"
+}
