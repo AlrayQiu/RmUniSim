@@ -3,7 +3,7 @@ using System.Numerics;
 namespace com.alray.rmunisim.Contracts.DTOs
 {
     [Serializable]
-    public class PointCloudData
+    public readonly struct PointCloudData
     {
         public PointCloudData(Vector3[] data)
         {

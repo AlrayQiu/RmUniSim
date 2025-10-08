@@ -3,7 +3,7 @@ using System.Numerics;
 namespace com.alray.rmunisim.Contracts.DTOs
 {
     [Serializable]
-    readonly ref struct Pose
+    public readonly struct Pose
     {
         public readonly string Header;
         public readonly long TimePoint;
