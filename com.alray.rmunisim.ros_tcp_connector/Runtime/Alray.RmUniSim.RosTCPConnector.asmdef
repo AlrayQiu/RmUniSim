@@ -1,7 +1,11 @@
 {
-    "name": "RmUniSim.Runtime",
+    "name": "Alray.RmUniSim.Middleware.RosTcpConnector",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+            "Unity.Robotics.ROSTCPConnector",
+            "Unity.Robotics.ROSTCPConnector.Messages",
+            "Unity.Robotics.ROSTCPConnector.MessageGeneration",
+            "Alray.RmUniSim.Contracts"],
     "includePlatforms": [
         "Android",
         "Editor",

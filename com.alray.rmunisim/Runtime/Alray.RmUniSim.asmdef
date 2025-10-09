@@ -1,0 +1,18 @@
+{
+    "name": "Alray.RmUniSim.Runtime",
+    "rootNamespace": "",
+    "references": ["Alray.RmUniSim.Contracts"],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "iOS"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
