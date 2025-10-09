@@ -9,6 +9,7 @@ using com.alray.rmunisim.Contracts.DTOs;
 using com.alray.rmunisim.Contracts.Interfaces;
 using com.alray.rmunisim.RoboticsSim.Domain;
 using com.alray.rmunisim.RoboticsSim.Infrastructure.Sensors.Lidars;
+using com.alray.rmunisim.Services;
 using com.alray.rmunisim.Visualization.Infrastructure;
 using UnityEngine;
 
@@ -18,17 +19,27 @@ namespace com.alray.rmunisim.Applications
     public class Lidar : MonoBehaviour
     {
         /// <summary>
+        /// Caches
+        /// </summary>
+        [SerializeReference]
+        public CommMiddlewareService<PointCloudData>.PublisherCache commCache = new();
+
+        /// <summary>
         /// 由 Inspector 获取
         /// </summary>
         public string LidarType;
+        public string PublisherType;
         public bool EnableRender = false;
+        public bool EnablePublish = false;
         public Material Material;
 
         /// <summary>
-        /// 雷达本身
+        /// 功能类
         /// </summary>
         private ILidar lidarObj;
         private PointCloudDrawer pcdDrawer;
+        [SerializeReference]
+        public IPublisher<PointCloudData> publisher;
 
 
         void Start()
@@ -42,10 +53,15 @@ namespace com.alray.rmunisim.Applications
             {
                 pcdDrawer = DrawerManagerSingleton.Instance
                      .RegistryDrawer<PointCloudDrawer, IPushSensor<PointCloudData>>(
-                         $"{this.name}_{this.LidarType}_pointCloud",
-                         Material,
-                         lidarObj
+                        $"{name}_{LidarType}_pointCloud",
+                        Material,
+                        lidarObj
                      );
+            }
+            if (EnablePublish)
+            {
+                publisher.Init();
+                lidarObj.AddDataProcessor(publisher.Publish);
             }
         }
 
@@ -53,8 +69,6 @@ namespace com.alray.rmunisim.Applications
         {
             pcdDrawer?.Draw();
         }
-
-
 
     }
 }

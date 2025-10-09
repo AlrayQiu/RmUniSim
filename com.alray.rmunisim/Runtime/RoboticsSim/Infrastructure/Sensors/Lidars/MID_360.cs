@@ -16,7 +16,7 @@ namespace com.alray.rmunisim.RoboticsSim.Infrastructure.Sensors.Lidars
     {
         public IEventUpdateBinder<Transform>.BinderContext? Context { get; set; }
 
-        event Action<PointCloudData> Processors;
+        Action<PointCloudData> Processors;
         public void AddDataProcessor(Action<PointCloudData> processor) => Processors += processor;
 
         int count = 0;

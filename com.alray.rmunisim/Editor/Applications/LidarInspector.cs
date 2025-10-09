@@ -1,11 +1,11 @@
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using com.alray.rmunisim.Applications;
 using com.alray.rmunisim.Applications.Helper;
+using com.alray.rmunisim.Contracts.DTOs;
+using com.alray.rmunisim.Contracts.Interfaces;
 using com.alray.rmunisim.RoboticsSim.Domain;
-using com.alray.rmunisim.RoboticsSim.Infrastructure.Sensors.Lidars;
+using com.alray.rmunisim.Services;
 using com.alray.rmunisim.Visualization.Domain;
 using UnityEditor;
 using UnityEngine;
@@ -16,6 +16,7 @@ namespace com.alray.rmunisim.Applications
     [CustomEditor(typeof(Lidar))]
     public class LidarInspector : Editor
     {
+
         public override void OnInspectorGUI()
         {
             var selector = (Lidar)target;
@@ -35,17 +36,40 @@ namespace com.alray.rmunisim.Applications
 
                     int shaderIndex = Mathf.Max(
                         0,
-                        System.Array.IndexOf(
+                       selector.Material ? System.Array.IndexOf(
                             ShaderSelector.AllShaders[VisualizationType.PointCloud],
-                            selector.Material.shader.name));
+                            selector.Material.shader.name) : 0);
                     shaderIndex = Mathf.Clamp(shaderIndex, 0, ShaderSelector.AllShaders[VisualizationType.PointCloud].Length - 1);
                     shaderIndex = EditorGUILayout.Popup("Shader", shaderIndex, ShaderSelector.AllShaders[VisualizationType.PointCloud]);
 
                     Shader shader = Shader.Find(ShaderSelector.AllShaders[VisualizationType.PointCloud][shaderIndex]);
-                    selector.Material = selector.Material.shader != shader ? new Material(shader) : selector.Material;
+                    selector.Material = (selector.Material == null || selector.Material.shader != shader) ? new Material(shader) : selector.Material;
                     ShaderInspectorHelper.Draw(shader, selector.Material);
                 }
+            }
 
+            selector.EnablePublish = EditorGUILayout.Toggle("Enable Publisher", selector.EnablePublish);
+            // 折叠区域
+            if (selector.EnablePublish)
+            {
+                int publisherIndex = Mathf.Max(
+                    0,
+                    System.Array.IndexOf(CommMiddlewareService<PointCloudData>
+                        .PublisherMiddlewares,
+                        selector.PublisherType));
+                publisherIndex = EditorGUILayout.Popup("Publisher", publisherIndex, CommMiddlewareService<PointCloudData>.PublisherMiddlewares);
+                string publisherType = CommMiddlewareService<PointCloudData>.PublisherMiddlewares[publisherIndex];
+
+                selector.publisher =
+                    selector.PublisherType != publisherType
+                    ? selector.commCache.Get(publisherType) : selector.publisher;
+                selector.PublisherType = publisherType;
+                if (selector.publisher != null)
+                {
+                    SerializedProperty publisherProp = serializedObject.FindProperty("publisher");
+                    EditorGUILayout.PropertyField(publisherProp, new GUIContent($"{selector.publisher.GetType().Name} settings"), true);
+                }
+                serializedObject.ApplyModifiedProperties();
             }
 
             // 保存修改

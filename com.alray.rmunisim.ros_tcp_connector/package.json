@@ -1,5 +1,5 @@
 {
-  "name": "com.alray.rmunisim.ros_unity_connector",
+  "name": "com.alray.rmunisim.ros_tcp_connector",
   "version": "0.1.0",
   "displayName": "RMUniSim.Middleware.RosUnityConnector",
     "description": "This is an simulation package for RoboMaster in Unity.",

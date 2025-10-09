@@ -2,9 +2,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using com.alray.rmunisim.Visualization.Domain;
 using UnityEditor;
 
-namespace com.alray.rmunisim.Visualization.Domain
+namespace com.alray.rmunisim.Services
 {
     public static class ShaderSelector
     {
