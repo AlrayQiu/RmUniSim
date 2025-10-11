@@ -1,0 +1,22 @@
+{
+    "name": "Alray.RmUniSim.Middleware.RosTcpConnector",
+    "rootNamespace": "",
+    "references": [
+            "Unity.Robotics.ROSTCPConnector",
+            "Unity.Robotics.ROSTCPConnector.Messages",
+            "Unity.Robotics.ROSTCPConnector.MessageGeneration",
+            "Alray.RmUniSim.Core"],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "iOS"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
